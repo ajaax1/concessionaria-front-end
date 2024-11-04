@@ -1,5 +1,7 @@
 # concessionaria
-https://raw.githubusercontent.com/ajaax1/concessionaria-front-end/refs/heads/master/concessionaria.png
+
+![Descrição da Imagem](https://raw.githubusercontent.com/ajaax1/concessionaria-front-end/refs/heads/master/concessionaria.png)
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
