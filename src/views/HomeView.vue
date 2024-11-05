@@ -4,18 +4,15 @@
 <template>
   <div class="w-full flex flex-col justify-center items-center">
     <header class="w-full">
-      <div class="bg-white-yellow w-full flex justify-center">
-        <span class="font-medium">VEÍCULOS</span>
-      </div>
-      <nav class="w-full flex justify-center bg-black-mid h-16 pl-10">
+      <nav class="w-full flex justify-center bg-slate-100 h-16 pl-10">
         <ul class="max-w-screen-xl w-full flex gap-10 h-full items-center">
-          <li class="text-white-yellow">
+          <li class="text-black">
             <RouterLink to="/">Início</RouterLink>
           </li>
-          <li class="text-white-yellow">
+          <li class="text-black">
             <RouterLink to="">Contato</RouterLink>
           </li>
-          <li class="text-white-yellow">
+          <li class="text-black">
             <RouterLink to="">Sobre Nós</RouterLink>
           </li>
         </ul>

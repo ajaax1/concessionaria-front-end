@@ -44,22 +44,22 @@ const pesquisar = async () => {
 <template>
     <AdminDelete />
     <img v-if="!loading" class="w-10 h-10 mt-28" src="/src/img/loading.gif" alt="">
-    <div v-if="loading" class="bg-gray-100 rounded-lg shadow-2xl w-full p-5 min-h-screen o">
+    <div v-if="loading" class="bg-gray-100 shadow-2xl w-full p-5 min-h-screen ">
         <div class="w-full flex justify-center gap-2 items-center mb-5">
             <span class="text-black font-bold text-2xl">VEICULOS</span>
             <RouterLink to="/admin/painel/veiculo-create"
-                class="bg-sky-700 shadow-lg rounded-sm h-8 w-20 hover:brightness-75 transition duration-300 flex justify-center items-center text-white">
+                class="bg-sky-700 shadow-lg rounded h-8 w-20 hover:brightness-75 transition duration-300 flex justify-center items-center text-white">
                 CRIAR</RouterLink>
         </div>
 
-        <div v-if="loading" class="w-full flex flex-col justify-center sm:rounded-lg  text-gray-500">
+        <div v-if="loading" class="w-full flex flex-col justify-center rounded overflow-hidden  text-gray-500 overflow-x-auto">
             <form @submit.prevent="pesquisar" class="w-full flex justify-end mb-1 items-center gap-1">
-                <input v-model="pesquisa" class="pl-1 border h-8 shadow-md rounded-sm" type="text">
+                <input v-model="pesquisa" class="pl-1 border h-8 shadow-md" type="text">
                 <button @click="pesquisar" to="/admin/painel/create"
-                    class="bg-sky-700 shadow-lg rounded-sm h-8 p-2 hover:brightness-75 transition duration-300 flex justify-center items-center text-white">PESQUISAR</button>
+                    class="bg-sky-700 shadow-lg rounded h-8 p-2 hover:brightness-75 transition duration-300 flex justify-center items-center text-white">PESQUISAR</button>
             </form>
-            <table class="text-left text-sm min-w-[600px]">
-                <thead class="text-xs text-white uppercas">
+            <table class="text-left text-sm min-w-[1000px]">
+                <thead class="text-xs rounded text-white">
                     <tr class="bg-sky-800 border-b border-gray-700">
                         <th class="px-6 py-4">NOME</th>
                         <th class="px-6 py-4">MARCA</th>
@@ -72,7 +72,7 @@ const pesquisar = async () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="border-b bg-sky-950 border-gray-700" v-for="veiculo in datas" :key="veiculo.id">
+                    <tr class="bg-sky-950 border-b border-gray-700" v-for="veiculo in datas" :key="veiculo.id">
                         <td class="px-6 py-4 font-medium whitespace-nowrap text-white">{{ veiculo.nome }}</td>
                         <td class="px-6 py-4 font-medium whitespace-nowrap text-white">{{ veiculo.marca && veiculo.marca.nome ? veiculo.marca.nome : 'NENHUMA' }}</td>
                         <td class="px-6 py-4 font-medium whitespace-nowrap text-white">{{ veiculo.categoria && veiculo.categoria.nome ? veiculo.categoria.nome : 'NENHUMA' }}</td>

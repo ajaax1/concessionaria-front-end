@@ -80,6 +80,9 @@ onMounted(async () => {
     categorias.value = await categoriaIndex();
     opcionais.value = await opcionalIndex();
     datas.value = await veiculoShow(id);
+    if(datas.value.descricao == null){
+        datas.value.descricao = '';
+    }
     nome.value = datas.value.nome;
     if (datas.value.marca_id != null) {
         marca_id.value = datas.value.marca_id;
@@ -194,8 +197,11 @@ const handleFileUpload = (event: Event) => {
     }
 };
 
-const removeImage = (index) => {
-    imagens.value.splice(index, 1);
+const removeImage = (preview) => {
+    const index = imagens.value.findIndex(image => image.preview === preview);
+    if (index !== -1) {
+        imagens.value.splice(index, 1);
+    }
 };
 
 </script>
@@ -208,15 +214,15 @@ const removeImage = (index) => {
                 VOLTAR</RouterLink>
         </div>
         <form @submit.prevent="submit" class="h-full flex flex-col items-center">
-            <div class="flex w-[500px] gap-2 justify-around">
-                <div class="flex flex-col w-1/2 mb-1">
+            <div class="flex sm:w-[500px] w-full gap-2 flex-col sm:flex-row justify-around">
+                <div class="flex flex-col sm:w-1/2 w-full mb-1">
                     <label class="text-black" for="">Nome</label>
                     <input
                         :class="{ 'border-red-700': messages.nome[0] !== undefined, 'border': true, 'h-8': true, 'shadow-md': true, 'rounded-sm': true, 'pl-1': true }"
                         v-model="nome" type="text">
                     <small class="text-red-700">{{ messages.nome[0] }}</small>
                 </div>
-                <div class="flex flex-col w-1/2 mb-1">
+                <div class="flex flex-col sm:w-1/2 w-full mb-1">
                     <label class="text-black" for="">Marcas</label>
                     <div class="flex items-center gap-1">
                         <select v-model="marca_id"
@@ -233,8 +239,8 @@ const removeImage = (index) => {
                     <small class="text-red-700">{{ messages.marca_id[0] }}</small>
                 </div>
             </div>
-            <div class="flex justify-center w-[500px] gap-2">
-                <div class="flex flex-col w-1/2 mb-1">
+            <div class="flex sm:w-[500px] w-full gap-2 flex-col sm:flex-row justify-around">
+                <div class="flex flex-col sm:w-1/2 w-full mb-1">
                     <label class="text-black" for="">Modelo</label>
                     <input
                         :class="{ 'border-red-700': messages.modelo[0] !== undefined, 'border': true, 'h-8': true, 'shadow-md': true, 'rounded-sm': true, 'pl-1': true }"
@@ -242,7 +248,7 @@ const removeImage = (index) => {
                     <small class="text-red-700">{{ messages.modelo[0] }}</small>
                 </div>
 
-                <div class="flex flex-col w-1/2 mb-1">
+                <div class="flex flex-col sm:w-1/2 w-full mb-1">
                     <label class="text-black" for="">Ano</label>
                     <input
                         :class="{ 'border-red-700': messages.ano[0] !== undefined, 'border': true, 'h-8': true, 'shadow-md': true, 'rounded-sm': true, 'pl-1': true }"
@@ -251,8 +257,8 @@ const removeImage = (index) => {
                 </div>
             </div>
 
-            <div class="flex justify-center w-[500px] gap-2">
-                <div class="flex flex-col w-1/2 mb-1">
+            <div class="flex sm:w-[500px] w-full gap-2 flex-col sm:flex-row justify-around">
+                <div class="flex flex-col sm:w-1/2 w-full mb-1">
                     <label class="text-black" for="">Cor</label>
                     <input
                         :class="{ 'border-red-700': messages.cor[0] !== undefined, 'border': true, 'h-8': true, 'shadow-md': true, 'rounded-sm': true, 'pl-1': true }"
@@ -260,7 +266,7 @@ const removeImage = (index) => {
                     <small class="text-red-700">{{ messages.cor[0] }}</small>
                 </div>
 
-                <div class="flex flex-col w-1/2 mb-1">
+                <div class="flex flex-col sm:w-1/2 w-full mb-1">
                     <label class="text-black" for="">Preço</label>
                     <input
                         :class="{ 'border-red-700': messages.preco[0] !== undefined, 'border': true, 'h-8': true, 'shadow-md': true, 'rounded-sm': true, 'pl-1': true }"
@@ -269,15 +275,15 @@ const removeImage = (index) => {
                 </div>
             </div>
 
-            <div class="flex justify-center w-[500px] gap-2">
-                <div class="flex flex-col w-1/2 mb-1">
+            <div class="flex sm:w-[500px] w-full gap-2 flex-col sm:flex-row justify-around">
+                <div class="flex flex-col sm:w-1/2 w-full mb-1">
                     <label class="text-black" for="">Quilometragem</label>
                     <input
                         :class="{ 'border-red-700': messages.quilometragem[0] !== undefined, 'border': true, 'h-8': true, 'shadow-md': true, 'rounded-sm': true, 'pl-1': true }"
                         v-model="quilometragem" type="text">
                     <small class="text-red-700">{{ messages.quilometragem[0] }}</small>
                 </div>
-                <div class="flex flex-col w-1/2 mb-1">
+                <div class="flex flex-col sm:w-1/2 w-full mb-1">
                     <label class="text-black" for="">Status</label>
                     <select
                         :class="{ 'border': true, 'h-8': true, 'shadow-md': true, 'rounded-sm': true, 'pl-1': true, 'border-red-700': messages.status[0] !== undefined }"
@@ -290,8 +296,8 @@ const removeImage = (index) => {
                     <small class="text-red-700">{{ messages.status[0] }}</small>
                 </div>
             </div>
-            <div class="flex w-[500px] gap-2 justify-around">
-                <div class="flex flex-col w-1/2 mb-1">
+            <div class="flex sm:w-[500px] w-full gap-2 flex-col sm:flex-row justify-around">
+                <div class="flex flex-col sm:w-1/2 w-full mb-1">
                     <label class="text-black" for="">Opcionais</label>
                     <div class="flex items-center gap-1">
                         <select @change="opcionaisSubmit" v-model="opcional"
@@ -310,7 +316,7 @@ const removeImage = (index) => {
                     </div>
                     <small class="text-red-700">{{ messages.opcionaisVeiculo[0] }}</small>
                 </div>
-                <div class="flex flex-col w-1/2 mb-1">
+                <div class="flex flex-col sm:w-1/2 w-full mb-1">
                     <label class="text-black" for="">Categoria</label>
                     <div class="flex items-center gap-1">
                         <select v-model="categoria_id"
@@ -327,9 +333,9 @@ const removeImage = (index) => {
                     <small class="text-red-700">{{ messages.categoria_id[0] }}</small>
                 </div>
             </div>
-            <div class="flex justify-start w-[500px] gap-2">
+            <div class="flex sm:w-[500px] w-full gap-2 flex-col">
                 <ul class="flex flex-col gap-1">
-                    <li class="text-xs rounded-md inline-flex p-1 bg-slate-200 gap-2 items-center max-w-max"
+                    <li v-motion-pop class="hover:brightness-75 text-xs rounded-md inline-flex p-1 bg-slate-200 gap-2 items-center max-w-max"
                         v-for="(opcional, index) in opcionais_submit" :key="index">
                         {{ opcional.nome }}
                         <div @click="deleteOpcional(index)" class="bg-red-700 cursor-pointer">
@@ -338,8 +344,8 @@ const removeImage = (index) => {
                     </li>
                 </ul>
             </div>
-            <div class="flex justify-start w-[500px] gap-2">
-                <div class="flex flex-col w-1/2 mb-1">
+            <div class="sm:w-[500px] w-full">
+                <div class="flex flex-col w-full mb-1">
                     <label class="text-black" for="">Câmbio</label>
                     <select
                         :class="{ 'border': true, 'h-8': true, 'shadow-md': true, 'rounded-sm': true, 'pl-1': true, 'border-red-700': messages.cambio[0] !== undefined }"
@@ -352,11 +358,11 @@ const removeImage = (index) => {
                     <small class="text-red-700">{{ messages.cambio[0] }}</small>
                 </div>
             </div>
-            <div class="flex justify-center w-[500px] gap-2">
+            <div class="flex sm:w-[500px] w-full gap-2 flex-col sm:flex-row justify-around">
                 <div class="flex flex-col w-full mb-1">
                     <div class="flex items-center justify-center w-full">
                         <label for="dropzone-file"
-                            class="flex flex-col items-center justify-center w-full h-28 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-sky-700 hover:bg-sky-600">
+                            class="flex flex-col items-center justify-center w-full h-28 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-sky-700 hover:brightness-75 transition duration-300">
                             <div class="flex flex-col items-center justify-center pt-5 pb-6">
                                 <svg class="w-8 h-8 mb-4 text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
@@ -374,19 +380,18 @@ const removeImage = (index) => {
                     </div>
                 </div>
             </div>
-            <div class="w-[500px] gap-2 flex justify-start flex-wrap">
+            <div class="flex sm:w-[500px] w-full gap-2 flex-wrap">
                 <draggable v-model="imagens" tag="transition-group">
                     <template #item="{ element }">
-                        <div>
-                            <img class="w-28 h-28" :src="element.preview" alt="Imagem" />
+                        <div v-motion-pop class="w-28 h-28 mb-8">
+                            <img class="w-full h-full" :src="element.preview" alt="Imagem" />
                             <button class="w-full bg-sky-700 text-sm text-white"
-                                @click.prevent="removeImage(index)">REMOVER</button>
+                                @click.prevent="removeImage(element.preview)">REMOVER</button>
                         </div>
                     </template>
                 </draggable>
             </div>
-
-            <div class="flex justify-center w-[500px] gap-2">
+            <div class="flex sm:w-[500px] w-full gap-2 flex-col sm:flex-row justify-around">
                 <div class="flex flex-col w-full mb-1">
                     <label class="text-black" for="">Descrição</label>
                     <textarea

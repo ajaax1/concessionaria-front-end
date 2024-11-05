@@ -55,17 +55,17 @@ const openModal = (id: number) => {
         <div class="w-full flex justify-center gap-2 items-center mb-5">
             <span class="text-black font-bold text-2xl">OPCIONAIS</span>
             <RouterLink to="/admin/painel/opcional-create"
-                class="bg-sky-700 shadow-lg rounded-sm h-8 w-20 hover:brightness-75 transition duration-300 flex justify-center items-center text-white">
+                class="bg-sky-700 shadow-lg rounded h-8 w-20 hover:brightness-75 transition duration-300 flex justify-center items-center text-white">
                 CRIAR</RouterLink>
         </div>
-        <div v-if="loading" class="w-full flex justify-center flex-col sm:rounded-lg  text-gray-500">
+        <div v-if="loading" class="w-full flex flex-col justify-center rounded overflow-hidden  text-gray-500 overflow-x-auto">
             <form @submit.prevent="pesquisar" class="w-full flex justify-end mb-1 gap-1 items-center">
-                <input v-model="pesquisa" class="pl-1 border h-8 shadow-md rounded-sm" type="text">
+                <input v-model="pesquisa" class="pl-1 border h-8 shadow-md" type="text">
                 <button @click="pesquisar" to="/admin/painel/opcional-create"
-                    class="bg-sky-700 shadow-lg rounded-sm h-8 p-2 hover:brightness-75 transition duration-300 flex justify-center items-center text-white">PESQUISAR</button>
+                    class="bg-sky-700 shadow-lg rounded h-8 p-2 hover:brightness-75 transition duration-300 flex justify-center items-center text-white">PESQUISAR</button>
             </form>
-            <table class="text-sm min-w-[350px]">
-                <thead class="text-xs text-white uppercas">
+            <table class="text-center text-sm min-w-[1000px]">
+                <thead class="text-xs rounded text-white">
                     <tr class="bg-sky-800 border-b border-gray-700">
                         <th class="px-6 py-4">NOME</th>
                         <th class="px-6 py-4">DATA CRIAÇÃO</th>

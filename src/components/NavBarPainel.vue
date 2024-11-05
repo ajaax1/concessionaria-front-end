@@ -5,7 +5,7 @@ const props = defineProps({
 
 </script>
 <template>
-    <div :class="['lg:min-h-screen','h-full', 'bg-gray-100', 'flex-col', 'w-52', 'p-2', 'gap-2', {'lg:fixed':props.showNav}, {'-translate-x-full':props.showNav},{'duration-300':props.showNav},'flex','absolute','lg:static']">
+    <div :class="['bg-gray-100', 'h-auto', 'flex-col', 'w-52', 'p-2', 'gap-2', {'lg:fixed':props.showNav}, {'-translate-x-full':props.showNav},{'duration-300':props.showNav},'flex','absolute','lg:static','min-w-max']">
         <div class="w-full">
             <RouterLink to="/admin/painel" class="bg-sky-700 shadow-lg rounded-sm h-8 w-full hover:brightness-75 transition duration-300 flex justify-center items-center text-white">DADOS</RouterLink>
         </div>
